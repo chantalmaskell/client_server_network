@@ -1,0 +1,21 @@
+Simple client/server network requirements:
+
+• Build a simple client/server network.
+• Once the network is established:
+• Create a dictionary, populate it, serialize it and send it to a server.
+• Create a text file and send it to a server.
+• With the dictionary, the user should be able to set the pickling format to one of the following: binary, JSON and XML.
+• The user will need to have the option to encrypt the text in a text file.
+• The server should have a configurable option to print the contents of the sent items to the screen and or to a file.
+• The server will need to be able to handle encrypted contents.
+• The client and server can be on separate machines or on the same machine.
+• Make sure that the code is written to PEP standard.
+• Use exception handling to handle potential errors.
+• Write unit tests.
+• Upload the project to your source control website.
+• Make sure that the commits have messages that describe the changes.
+• Make sure the code is documented.
+• Members of the group should provide a code review to each other's code.
+• Code submission should include your directory tree as well as code documentation.
+• This should include as a minimum a Readme.md and requirements.txt as well as other documentation that you may see fit to include.
+• The log of Github/GitLab push comments and code reviews should be included.
