@@ -1,25 +1,38 @@
+# Import socket module
 import socket
-import os
 
-def client_program():
-    host = socket.gethostname()
-    port = 56789
+# Import pickle module for serialisation
+import pickle
 
-    client_socket = socket.socket()
-    client_socket.connect((host, port))/
+# Socket initialisation
+s = socket.socket()
+host = socket.gethostname()
+port = 56789
 
-    message = input(" -> ")
+# Connect host and port with server
+s.connect((host, port))
+# s.send(("Hello server").encode('utf-8'))
 
-    while message.lower().strip != 'end':
-        client_socket.send(message.encode())
-        data = client_socket.recv(1024).decode()
+# Empty dictionary for client to populate
+dictionary = {}
 
-        print('Received from server: ' + data)
-        
-        message = input(" -> ")
+# Input field for user to enter dictionary key(s) and value(s)
+key = input('Enter a key for the dictionary (press q to quit): ')
 
-    client_socket.close()
+# While loop to extend dictionary contents
+# User to press 'q' to close the dictionary
+while key != 'q':
+    value = input('Enter a value for the key: ')
+    dictionary[key] = value
+    key = input('Enter another key for the dictionary (press q to quit): ')
 
-if __name__ == '__main__':
-    client_program()
-    
+# Serialisation of dictionary object
+dictionary_bytes = pickle.dumps(dictionary)
+s.send(dictionary_bytes)
+
+response = s.recv(1024).decode('utf-8')
+print(response)
+
+# End connection with server
+s.close()
+print('Connection ended with server.')
