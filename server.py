@@ -1,44 +1,77 @@
 import socket
 import pickle
+import json
+import marshal
+import magic
 
-# Define port number
-port = 56789    
+class ServerSide:
+    def __init__(self, port, save_file=False):
+        self.s = socket.socket()
+        self.host = socket.gethostname()
+        self.port = port
 
-# Socket initialisation
-s = socket.socket()
-host = socket.gethostname() 
+    def server_check(self):
+        self.s.bind((self.host, self.port))
 
-# Bind port and host
-s.bind((host, port))
+        try:
+            self.s.listen(5)
+            print('Server is listening...')
+        except:
+            raise Exception('Server failed!')
 
-# Listen for connection from client
-s.listen(5)
-print('Server listening....')
+    def test_connection(self):
+        while True:
+            try:
+                self.conn, addr = self.s.accept()
+                if addr is None:
+                    raise Exception('Problem with address.')
+                else:
+                    print('Got connection from', addr)
+                    break
+            except:
+                raise Exception('Connection error.')
 
-while True:
-    # Establish connection with client
-    conn, addr = s.accept()
-    print('Got connection from', addr)
-    # data = conn.recv(4096)
-    # print('Message received from client: ', repr(data))
+    def deserialise_dict(self):
+        received_dict = self.conn.recv(4096)
+        m = magic.Magic(mime=True)
+        file_type = m.from_buffer(received_dict)
+        file_saved = False
 
-    # Serialisation of dictionary from client
-    dictionary_bytes = conn.recv(1024)
-    dictionary = pickle.loads(dictionary_bytes)
+        if file_type == 'application/octet-stream':
+        # Check if the contents of the dictionary match the format of binary data
+            try:
+                self.loaded_dict = pickle.loads(received_dict)
+                print('Binary file type received. Now depickling.')
+                
+                # Checks if recieved dict is bytes object
+                if isinstance(self.loaded_dict, bytes):
+                    file_saved = True
+                    with open("C:\\Users\chana\\Documents\\GitHub\\client_server_network\\server_cache\\text.txt", 'wb') as f:
+                        f.write(self.loaded_dict)
 
-    # Format key value pairs and delimet with colon
-    for key, value in dictionary.items():
-        print(key, ':', value)
+                    print('Text File Saved.')
+            except:
+                print('XML file type received. Now loading.')
+                self.loaded_dict = marshal.loads(received_dict)
 
-    # Send message to client with UTF-8 encoding
-    conn.send(('Dictionary received by server').encode('utf-8'))
+        elif file_type == 'text/plain':
+        # Check if the contents of the dictionary match the format of JSON data
+            try:
+                self.loaded_dict = json.loads(received_dict.decode('utf-8'))
+                print('JSON file type received. Now Loading')
+            except:
+                raise Exception('Invalid JSON file.')
+            
+        else:
+            print(f'File type: {file_type} not supported')
 
-    # Close connection with client
-    conn.close()
-    print('Connection with', addr, 'closed.')
-    break
+        if file_saved == False:
+            print(self.loaded_dict)
 
-# End socket connection with client
-s.close()
-print('Server closed.')
-conn.send(('Thank you for connecting. Connection will now end.').encode('utf-8'))
+    def run_server(self):
+        self.server_check()
+        self.test_connection()
+        self.deserialise_dict()
+
+server = ServerSide(56789)
+server.run_server()
