@@ -1,6 +1,3 @@
-# Built-in Python unit testing module
+# Unit testing
 import unittest
-
-# Pytest module for parallel unit testing
-import pytest
 
