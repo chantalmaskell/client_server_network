@@ -7,10 +7,11 @@ import magic
 # Server class
 class ServerSide:
     # Initialising core variables
-    def __init__(self, port, save_file=False):
+    def __init__(self, port, save_file=False, print_result=True):
         self.s = socket.socket()
         self.host = socket.gethostname()
         self.port = port
+        self.print_result = print_result
 
     def server_check(self):
         # Binding the socket to the host and port
@@ -44,7 +45,7 @@ class ServerSide:
         # Use magic to determine the file type of the received data
         m = magic.Magic(mime=True)
         file_type = m.from_buffer(received_dict)
-        file_saved = False
+        # file_saved = False
 
         # Check if the contents of the dictionary match the format of binary data
         if file_type == 'application/octet-stream':
@@ -55,12 +56,14 @@ class ServerSide:
                 
                 # Checks if recieved dict is bytes object
                 if isinstance(self.loaded_dict, bytes):
-                    file_saved = True
+                    # file_saved = True
                     with open("C:\\Users\chana\\Documents\\GitHub\\client_server_network\\server_cache\\text.txt", 'wb') as f:
                         # Saving received bytes object as text file
                         f.write(self.loaded_dict)
 
                     print('Text File Saved.')
+                    # else:
+                    #     print(self.loaded_dict)
             except:
                 print('XML file type received. Now loading.')
                 self.loaded_dict = marshal.loads(received_dict)
@@ -78,7 +81,7 @@ class ServerSide:
             # Unsupported file type received
             print(f'File type: {file_type} not supported')
 
-        if file_saved == False:
+        if self.print_result == True:
             print(self.loaded_dict)
 
     def run_server(self):
