@@ -4,18 +4,12 @@ The code in this project consists of a client file and server file. To run the c
 
 ## Table of Contents
 
-- [Security](#security)
 - [Background](#background)
 - [Dictionary Serialisation](#pickle)
 - [Encryption](#encryption)
 - [Install](#install)
 - [Directory Tree](#directorytree)
-- [Usage](#usage)
-- [API](#api)
-- [Contributing](#contributing)
 - [License](#license)
-
-## Security
 
 ## Background
 
@@ -29,31 +23,24 @@ When sending a dictionary from the client, the user has the ability to define wh
 
 By default, the user is able to input a dictionary from a prompt on the client-side code, where the user will be asked to enter a 'key' and then its corresponding 'value' pair. If you want to change this, please update the 'dictionary={}' value in the __init__ and replace this with the variable of your dictionary. This will bypass the manual dictionary input stage.
 
-
 ### Encryption
 
 The client code has a prompt that will reveal if the user changes the default argument within the ClientSide initialisation to True. The prompt is a simple 'y/n' that enables the user to encrypt the text file prior to sending it to the server. If the user selects 'n', a standard serialised file will be sent to the server using pickle.dumps(). If the user does proceed to encrypt the file however, the fernet.encrypt() encryption method will be applied to the file before being serialised and sent to the server.
 
-### Exception Handling
-
 ## Install
+
+To run the code from the server and client files, please ensure you have the latest version of Python installed.
 
 ## Directory Tree
 
-├── Client
-│├── client.py
-└── Server
-├── server.py
-├── requirements.txt
-├── README.md
-├── unittest.py
-└── LICENSE
-
-## API
-
-## Contributing
-
-Below are the contributors to this project.
+├── Client\n
+│├── client.py\n
+└── Server\n
+├── server.py\n
+├── requirements.txt\n
+├── README.md\n
+├── unittest.py\n
+└── LICENSE\n
 
 ## License
 
