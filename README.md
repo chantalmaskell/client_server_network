@@ -36,9 +36,18 @@ The client code has a prompt that will reveal if the user changes the default ar
 
 ### Exception Handling
 
-### Validation
-
 ## Install
+
+## Directory Tree
+
+├── Client
+│├── client.py
+└── Server
+├── server.py
+├── requirements.txt
+├── README.md
+├── unittest.py
+└── LICENSE
 
 ## API
 
