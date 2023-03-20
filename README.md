@@ -9,6 +9,7 @@ The code in this project consists of a client file and server file. To run the c
 - [Dictionary Serialisation](#pickle)
 - [Encryption](#encryption)
 - [Install](#install)
+- [Directory Tree](#directorytree)
 - [Usage](#usage)
 - [API](#api)
 - [Contributing](#contributing)
