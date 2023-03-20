@@ -12,15 +12,18 @@ class ClientSide:
         self.send_file = send_file
 
         try:
+            # Create a socket object and connect to the specified host and port
             self.s = socket.socket()
             self.host = socket.gethostname()
             self.port = port
             self.s.connect((self.host, self.port))
 
         except socket.error as err:
+            # If an error occurs, print the error message
             print(f'Failed to connect to socket.{err}')
 
     def create_dict(self):
+        # Clear the dictionary
         self.dictionary = {}
 
         # Input field for user to enter dictionary key(s) and value(s)
@@ -34,18 +37,23 @@ class ClientSide:
             key = input('Enter another key for the dictionary (press q to quit): ')
 
     def serialised_binary(self):
+        # Serialise the dictionary to binary
         self.dictionary = pickle.dumps(self.dictionary)
         
-    def serialised_json(self):      
+    def serialised_json(self): 
+        # Serialise the dictionary to JSON
         self.dictionary = json.dumps(self.dictionary).encode()
 
     def serialised_xml(self):
+        # Serialise the dictionary to XML
         self.dictionary = marshal.dumps(self.dictionary)
 
     def send_message(self):
+        # If dictionary is empty, prompt user to enter dictionary values
         if len(self.dictionary) == 0:
             self.create_dict()
 
+        # Serialise dictionary based on file type    
         if self.file_type == 'binary':
             self.serialised_binary()
         elif self.file_type == 'json':
