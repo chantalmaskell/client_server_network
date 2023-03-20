@@ -30,7 +30,7 @@ The client code has a prompt that will reveal if the user changes the default ar
 ## Install
 
 To run the code from the server and client files, please ensure you have the latest version of Python installed. For unit testing, run:
-$ pytest client_server_tests.py
+$ pytest unit_test.py
 
 ## Directory Tree
 
