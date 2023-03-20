@@ -33,14 +33,21 @@ To run the code from the server and client files, please ensure you have the lat
 
 ## Directory Tree
 
-├── Client\n
-│├── client.py\n
-└── Server\n
-├── server.py\n
-├── requirements.txt\n
-├── README.md\n
-├── unittest.py\n
-└── LICENSE\n
+├── Client
+<br>
+│├── client.py
+<br>
+└── Server
+<br>
+├── server.py
+<br>
+├── requirements.txt
+<br>
+├── README.md
+<br>
+├── unittest.py
+<br>
+└── LICENSE
 
 ## License
 
